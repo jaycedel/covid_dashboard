@@ -19,9 +19,14 @@ public class MainActivity extends AppCompatActivity {
         worldButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(),WorldActivity.class);
-//                EditText editText = (EditText) findViewById(R.id.editText);
-//                String message = editText.getText().toString();
-//                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
+
+        final Button countryButton = (Button) findViewById(R.id.btn_country);
+        countryButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),CountryActivity.class);
                 startActivity(intent);
             }
         });
