@@ -40,7 +40,7 @@ public class CountryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
 
-        LoadCountryData();
+        loadCountryData();
     }
 
     public void ButtonClick(View view) {
@@ -50,7 +50,7 @@ public class CountryActivity extends AppCompatActivity {
         countrySlug = spinner2.getSelectedItem().toString();
         LoadCovidData(countrySlug);
     }
-    private void LoadCountryData()
+    private void loadCountryData()
     {
         //Create a handler for the RetrofitInstance interface//
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -108,7 +108,6 @@ public class CountryActivity extends AppCompatActivity {
         cartesian.crosshair().enabled(true);
         cartesian.crosshair()
                 .yLabel(true)
-                // TODO ystroke
                 .yStroke((Stroke) null, null, null, (String) null, (String) null);
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);

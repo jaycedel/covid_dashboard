@@ -17,6 +17,7 @@ public interface GetDataService {
     @GET("{country_slug}")
     Call<List<CovidData>> getAllCovidData(@Path(value = "country_slug", encoded = true) String countrySlug);
 
-    //@GET("/total/country/philippines")
-    //Call<List<CovidData>> getAllCovidData();
+//    https://api.covid19api.com/summary
+    @GET("/summary")
+    Call<GlobalSummary> getGlobalSummary();
 }

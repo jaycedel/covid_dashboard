@@ -3,4 +3,9 @@
     <string name="world">World</string>
     <string name="covid_dashboard">COVID DASHBOARD</string>
     <string name="country">Country</string>
+    <string name="new_confirmed_cases">New Confirmed Cases</string>
+    <string name="xx_xxx">XX,XXX</string>
+    <string name="total_cases">Total Cases</string>
+    <string name="total_death">Total Death</string>
+    <string name="total_recovered">Total Recovered</string>
 </resources>

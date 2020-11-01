@@ -11,15 +11,22 @@
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spinner2"
+        android:layout_marginEnd="323dp"
+        android:onClick="ButtonClick"
         android:text="Load"
-        android:onClick="ButtonClick" />
+        app:layout_constraintBottom_toTopOf="@+id/any_chart_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner2" />
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
