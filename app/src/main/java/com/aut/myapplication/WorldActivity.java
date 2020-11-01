@@ -2,10 +2,12 @@ package com.aut.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anychart.AnyChart;
@@ -27,6 +29,7 @@ import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,8 @@ import retrofit2.Response;
 
 public class WorldActivity extends AppCompatActivity {
 
+    WorldData worldData = new WorldData();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,7 @@ public class WorldActivity extends AppCompatActivity {
         loadGlobalData();
     }
 
-    private void loadGlobalData(){
+    private void loadGlobalData() {
         //Create a handler for the RetrofitInstance interface//
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<GlobalSummary> call = service.getGlobalSummary();
@@ -56,6 +61,7 @@ public class WorldActivity extends AppCompatActivity {
             public void onResponse(Call<GlobalSummary> call, Response<GlobalSummary> response) {
                 loadDataListCovid(response.body());
             }
+
             @Override
             //Handle execution failures//
             public void onFailure(Call<GlobalSummary> call, Throwable throwable) {
@@ -65,8 +71,7 @@ public class WorldActivity extends AppCompatActivity {
         });
     }
 
-
-    private AnyChartView loadDataListCovid(GlobalSummary summary) {
+    private void loadDataListCovid(GlobalSummary summary) {
         AnyChartView anyChartView = findViewById(R.id.any_chart_pie_view);
         //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
@@ -78,7 +83,6 @@ public class WorldActivity extends AppCompatActivity {
                 Toast.makeText(WorldActivity.this, event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
             }
         });
-
 
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("New Confirmed", summary.getGlobal().getNewConfirmed()));
@@ -105,7 +109,24 @@ public class WorldActivity extends AppCompatActivity {
                 .align(Align.CENTER);
 
         anyChartView.setChart(pie);
-        return anyChartView;
+
+        WorldData wData = new WorldData();
+        wData.setTotalRecovered(summary.getGlobal().getTotalRecovered());
+        wData.setTotalDeath(summary.getGlobal().getTotalDeaths());
+        wData.setTotalConfirmed(summary.getGlobal().getTotalConfirmed());
+
+        NumberFormat digitFormat = NumberFormat.getInstance();
+
+        final TextView totalConfirmed = findViewById(R.id.wtext_total_cases);
+        totalConfirmed.setText(digitFormat.format(wData.getTotalConfirmed()));
+
+        final TextView totalDeath = findViewById(R.id.wtext_total_death);
+        totalDeath.setText(digitFormat.format(wData.getTotalDeath()));
+
+        final TextView totalRecovered = findViewById(R.id.wtext_total_recovered);
+        totalRecovered.setText(digitFormat.format(wData.getTotalRecovered()));
+
+        this.worldData = wData;
     }
 
     @Override
@@ -117,9 +138,9 @@ public class WorldActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-                Toast.makeText(getBaseContext(),"back to main",Toast.LENGTH_SHORT).show();
-                return true;
-
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(intent);
+        Toast.makeText(getBaseContext(), "back to main", Toast.LENGTH_SHORT).show();
+        return true;
     }
 }

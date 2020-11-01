@@ -2,6 +2,7 @@ package com.aut.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -218,7 +219,13 @@ public class CountryActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent = new Intent(getBaseContext(),MainActivity.class);
+        startActivity(intent);
         Toast.makeText(getBaseContext(),"back to main",Toast.LENGTH_SHORT).show();
+
+
+
         return true;
     }
 }
