@@ -108,7 +108,6 @@ public class CountryActivity extends AppCompatActivity {
         cartesian.crosshair().enabled(true);
         cartesian.crosshair()
                 .yLabel(true)
-                // TODO ystroke
                 .yStroke((Stroke) null, null, null, (String) null, (String) null);
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);

@@ -66,9 +66,9 @@ public class WorldActivity extends AppCompatActivity {
     }
 
 
-    private void loadDataListCovid(GlobalSummary summary) {
+    private AnyChartView loadDataListCovid(GlobalSummary summary) {
         AnyChartView anyChartView = findViewById(R.id.any_chart_pie_view);
-        anyChartView.setProgressBar(findViewById(R.id.progress_bar));
+        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Pie pie = AnyChart.pie();
 
@@ -105,6 +105,7 @@ public class WorldActivity extends AppCompatActivity {
                 .align(Align.CENTER);
 
         anyChartView.setChart(pie);
+        return anyChartView;
     }
 
     @Override
