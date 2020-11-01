@@ -51,8 +51,8 @@ public class CountryActivity extends AppCompatActivity {
         countrySlug = spinner2.getSelectedItem().toString();
         LoadCovidData(countrySlug);
     }
-    private void loadCountryData()
-    {
+
+    private void loadCountryData() {
         //Create a handler for the RetrofitInstance interface//
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<List<Country>> call = service.getAllCountries();
@@ -64,6 +64,7 @@ public class CountryActivity extends AppCompatActivity {
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                 loadDataListCountry(response.body());
             }
+
             @Override
             //Handle execution failures//
             public void onFailure(Call<List<Country>> call, Throwable throwable) {
@@ -74,11 +75,10 @@ public class CountryActivity extends AppCompatActivity {
 
     }
 
-    private void LoadCovidData(String countrySlug){
+    private void LoadCovidData(String countrySlug) {
         //Create a handler for the RetrofitInstance interface//
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<List<CovidData>> call = service.getAllCovidData("/total/country/" + countrySlug);
-
 
         //Execute the request asynchronously//
         call.enqueue(new Callback<List<CovidData>>() {
@@ -87,6 +87,7 @@ public class CountryActivity extends AppCompatActivity {
             public void onResponse(Call<List<CovidData>> call, Response<List<CovidData>> response) {
                 loadDataListCovid(response.body());
             }
+
             @Override
             //Handle execution failures//
             public void onFailure(Call<List<CovidData>> call, Throwable throwable) {
@@ -96,7 +97,7 @@ public class CountryActivity extends AppCompatActivity {
         });
     }
 
-    private void loadDataListCovid(List<CovidData> covidDataList) {
+    private void loadDataListCovid (List<CovidData> covidDataList) {
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
@@ -121,13 +122,11 @@ public class CountryActivity extends AppCompatActivity {
         List<DataEntry> seriesData = new ArrayList<>();
 
         final int size = covidDataList.size();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             try {
                 seriesData.add(new CustomDataEntry(covidDataList.get(i).getDate(), covidDataList.get(i).getActive().doubleValue(), covidDataList.get(i).getRecovered().doubleValue(), covidDataList.get(i).getDeaths().doubleValue()));
 
-            }catch(Exception e)
-            {
+            } catch (Exception e) {
 
             }
             //seriesData.add(new CustomDataEntry("Feb 15", 3.6, 2.3, 2.8));
@@ -188,8 +187,7 @@ public class CountryActivity extends AppCompatActivity {
         List<String> list = new ArrayList<String>();
 
         final int size = countryList.size();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             //list.add(countryList.get(i).getCountry());
             list.add(countryList.get(i).getSlug());
         }
@@ -220,10 +218,9 @@ public class CountryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent = new Intent(getBaseContext(),MainActivity.class);
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
-        Toast.makeText(getBaseContext(),"back to main",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getBaseContext(), "back to main", Toast.LENGTH_SHORT).show();
 
 
         return true;
